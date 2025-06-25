@@ -1,0 +1,26 @@
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@MappedSuperclass
+public abstract class User {
+	@Id
+    private String userId;
+	@NotEmpty(message = "Name can not be a null or empty")
+    @Size(min = 5, max = 30, message = "The length of the customer name should be between 5 and 30")
+    private String userName;
+    @NotEmpty(message = "Email address can not be a null or empty")
+    @Email(message = "Email address should be a valid value")
+    private String userEmail;
+    @NotBlank
+    @Pattern(
+        regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
+        message = "Password must be at least 8 characters long, include a digit, an uppercase letter, a lowercase letter, and a special character."
+    )
+    private String userPassword;
+    @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
+    private String userPhoneNumber;
+    private Status status;
+    private String userProfile;
+    @OneToOne
+    private Address address;
+}
